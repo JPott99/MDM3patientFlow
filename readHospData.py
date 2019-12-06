@@ -34,6 +34,7 @@ if __name__ == "__main__":
     #myData form is [Source, Target, Transfers, Week]
 with open("hospitalData.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
+    writer.writerow(["Source","Target","Transfers","Week"])
     writer.writerows(myData)
 Sources = []
 Targets = []
