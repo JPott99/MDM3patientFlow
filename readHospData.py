@@ -1,4 +1,5 @@
 import csv
+import numpy as np
 
 if __name__ == "__main__":
     with open('pone0185912s003.csv', 'rt') as f_input:
@@ -31,21 +32,23 @@ if __name__ == "__main__":
         myData.append(currentData)
 
     #myData form is [Source, Target, Transfers, Week]
+with open("hospitalData.csv",'w') as file:
+    writer = csv.writer(file, delimiter=',')
+    writer.writerows(myData)
+Sources = []
+Targets = []
+for i in range(len(myData)):
+    currentSource = myData[i][0]
+    currentTarget = myData[i][1]
+    if currentSource not in Sources:
+        Sources.append(currentSource)
+    if currentTarget not in Targets:
+        Targets.append(currentTarget)
 
-    Sources = []
-    Targets = []
-    for i in range(len(myData)):
-        currentSource = myData[i][0]
-        currentTarget = myData[i][1]
-        if currentSource not in Sources:
-            Sources.append(currentSource)
-        if currentTarget not in Targets:
-            Targets.append(currentTarget)
-
-    weeklyTransfers = [0]*82
-    for i in range(len(myData)):
-        j = myData[i][3]
-        weeklyTransfers[j]+=myData[i][2]
+weeklyTransfers = [0]*82
+for i in range(len(myData)):
+    j = myData[i][3]
+    weeklyTransfers[j]+=myData[i][2]
 
 transferList = []
 transferListLen = 0
@@ -63,6 +66,49 @@ for i in range(len(myData)):
         transferListNo[transferListLen-1][week]+=transferNo
     else:
         transferListNo[transferList.index(pairing)][week]+=transferNo
-transferListSums = [0]*len(transferListNo)
-for i in range(len(transferListNo)):
-    transferListSums[i] = sum(transferListNo[i])
+with open("transfers.csv",'w') as file:
+    writer = csv.writer(file, delimiter=',')
+    writer.writerow(["Source","Target"]+list(range(82)))
+    for i in range(len(transferList)):
+        writer.writerow(transferList[i]+list(transferListNo[i]))
+
+transferListNoNp = np.array(transferListNo)
+sourceTransfers = np.array([np.array([0]*82)]*len(Sources))
+for i in range(len(transferList)):
+    source = transferList[i][0]
+    j = Sources.index(source)
+    sourceTransfers[j] += transferListNoNp[i]
+with open("sourceTransfers.csv",'w') as file:
+    writer = csv.writer(file, delimiter=',')
+    writer.writerow(["Source"]+list(range(82)))
+    for i in range(len(Sources)):
+        writer.writerow([Sources[i]]+list(sourceTransfers[i]))
+
+targetTransfers = np.array([np.array([0]*82)]*len(Targets))
+for i in range(len(transferList)):
+    target = transferList[i][0]
+    j = Targets.index(target)
+    targetTransfers[j] += transferListNoNp[i]
+with open("targetTransfers.csv",'w') as file:
+    writer = csv.writer(file, delimiter=',')
+    writer.writerow(["Target"]+list(range(82)))
+    for i in range(len(Targets)):
+        writer.writerow([Targets[i]]+list(targetTransfers[i]))
+
+probabilityMatrix = transferListNo
+for i in range(len(transferList)):
+    source = transferList[i][0]
+    j = Sources.index(source)
+    for k in range(82):
+        if sourceTransfers[j][k]!=0:
+            probabilityMatrix[i][k] = transferListNo[i][k]/sourceTransfers[j][k]
+for i in probabilityMatrix:
+    for j in i:
+        if  np.isnan(j) or j>1:
+            j = 0
+
+with open("transferProbability.csv",'w') as file:
+    writer = csv.writer(file, delimiter=',')
+    writer.writerow(["Source","Target"]+list(range(82)))
+    for i in range(len(transferList)):
+        writer.writerow(transferList[i]+list(probabilityMatrix[i]))
