@@ -87,7 +87,7 @@ with open("sourceTransfers.csv",'w') as file:
 
 targetTransfers = np.array([np.array([0]*82)]*len(Targets))
 for i in range(len(transferList)):
-    target = transferList[i][0]
+    target = transferList[i][1]
     j = Targets.index(target)
     targetTransfers[j] += transferListNoNp[i]
 with open("targetTransfers.csv",'w') as file:
