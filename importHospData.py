@@ -21,4 +21,4 @@ def importData():
         csv_input = csv.reader(hospInput,delimiter=',')
         transProbHeaders = next(csv_input)
         transProb = list(csv_input)
-    return (myData,myDataHeaders,sourceTransfers,sourceTransfersHeaders,targetTransfers,targetTransfersHeaders,transfers,tranfersHeadings,transProb,transProbHeaders)
+    return (myData,myDataHeaders,sourceTransfers,sourceTransfersHeaders,targetTransfers,targetTransfersHeaders,transfers,tranfersHeaders,transProb,transProbHeaders)
