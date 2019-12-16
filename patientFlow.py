@@ -28,6 +28,6 @@ modelProb,modelProbZeros,modelProbLink = findMeanProbs(transProb)
 
 with open("modelProbabalities.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
-    writer.writerow(["Source","Target","Probability","Prob of Zero"])
+    writer.writerow(["Source","Target","Probability","Rate of Zero", "Total Prob"])
     for i in range(len(modelProb)):
-        writer.writerow(modelProbLink[i]+[modelProb[i],modelProbZeros[i]/82])
+        writer.writerow(modelProbLink[i]+[modelProb[i],modelProbZeros[i]/82,modelProb[i]*(1-modelProbZeros[i]/82)])
