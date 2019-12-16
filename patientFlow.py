@@ -40,15 +40,6 @@ def findTotalFlowDifference(sourceTransfers,targetTransfers):
     for i in range(len(targetTransfers)):
         targetTransference[i] = sum(targetTransference[i])
 
-    pruhem = 0
-    sourceT =[]
-    for i in range(len(sourceTransfers)):
-        sourceT.append(np.array(list(map(float,sourceTransfers[i][1:]))))
-    for i in range(len(sourceTransfers)):
-        if sourceTransfers[i][0] == 'PRUH.EmergencyDept':
-            pruhem += sum(sourceT[i])
-    print(pruhem)
-
     differences = []
     for i in range(len(sourceTransfers)):
         difference = -sourceTransference[i][0]
