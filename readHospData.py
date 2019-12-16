@@ -103,10 +103,6 @@ for i in range(len(transferList)):
     for k in range(82):
         if sourceTransfers[j][k]!=0:
             probabilityMatrix[i][k] = transferListNo[i][k]/sourceTransfers[j][k]
-for i in probabilityMatrix:
-    for j in i:
-        if  np.isnan(j) or j>1:
-            j = 0
 
 with open("transferProbability.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
