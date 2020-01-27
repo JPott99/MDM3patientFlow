@@ -17,6 +17,18 @@ def targetfromsource(source, data):
             break
     return(patientTarget)
 
+def simulateHospital(wards,wardPatientsCurrent,loops,data,currentLoop=0):
+    wardPatientsFuture = [0]*len(wards)
+    for i in range(len(wards)):
+        while wardPatientsCurrent[i]>0:
+            target = targetfromsource(wards[i],data)
+            wardPatientsFuture[wards.index(target)]+=1
+            wardPatientsCurrent[i]-=1
+    currentLoop+=1
+    if currentLoop<loops:
+        wardPatientsFuture=simulateHospital(wards,wardPatientsFuture, loops,data, currentLoop)
+    return(wardPatientsFuture)
+
 with open('modelProbabalities.csv','rt') as hospInput:
     csv_input = csv.reader(hospInput,delimiter=',')
     myDataHeaders = next(csv_input)
@@ -33,14 +45,10 @@ data = [sources,targets,probs]
 wards = sorted(list(set(list(sources) + list(targets))))
 
 wardPatientsCurrent = [1]*len(wards)
-wardPatientsFuture = [0]*len(wards)
+
+wardPatientsFuture = simulateHospital(wards,wardPatientsCurrent,11,data)
+print(wardPatientsFuture)
 
 for i in range(len(wards)):
-    while wardPatientsCurrent[i]>0:
-        target = targetfromsource(wards[i],data)
-        wardPatientsFuture[wards.index(target)]+=1
-        wardPatientsCurrent[i]-=1
-
-
-for i in range(len(wards)):
-    print(wards[i],wardPatientsFuture[i])
+    if wardPatientsFuture[i]!= 0:
+        print(wards[i],wardPatientsFuture[i])
