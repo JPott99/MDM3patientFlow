@@ -47,7 +47,6 @@ wards = sorted(list(set(list(sources) + list(targets))))
 wardPatientsCurrent = [1]*len(wards)
 
 wardPatientsFuture = simulateHospital(wards,wardPatientsCurrent,11,data)
-print(wardPatientsFuture)
 
 for i in range(len(wards)):
     if wardPatientsFuture[i]!= 0:
