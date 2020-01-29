@@ -17,8 +17,8 @@ def findMeanProbs(transProb):
                 modelProbZeros[i]+=1
     modelProb = []
     for i in range(len(noProb)):
-        avgDiv = len(noProb[i])-modelProbZeros[i]
-        modelProb.append(sum(noProb[i])/(avgDiv*2))
+        avgDiv = 82#len(noProb[i])-modelProbZeros[i]
+        modelProb.append(sum(noProb[i])/(avgDiv))
 
     modelProb = np.array(modelProb)
 
@@ -60,6 +60,6 @@ modelProb,modelProbZeros,modelProbLink = findMeanProbs(transProb)
 
 with open("modelProbabalities.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
-    writer.writerow(["Source","Target","Probability","Rate of Zero", "Total Prob"])
+    writer.writerow(["Source","Target","Probability","Number of Zero", "Total Prob"])
     for i in range(len(modelProb)):
-        writer.writerow(modelProbLink[i]+[modelProb[i],modelProbZeros[i]/82,modelProb[i]*(1-modelProbZeros[i]/82)])
+        writer.writerow(modelProbLink[i]+[modelProb[i],modelProbZeros[i],modelProb[i]/((1-modelProbZeros[i]/82))])
