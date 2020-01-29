@@ -1,5 +1,8 @@
 import csv
 import numpy as np
+import time
+
+start_time = time.time()
 
 def targetfromsource(source, data):
     #targetfromsource gives a random target given one person in source
@@ -17,17 +20,34 @@ def targetfromsource(source, data):
             break
     return(patientTarget)
 
-def simulateHospital(wards,wardPatientsCurrent,loops,data,currentLoop=0):
+def simulateHospital(wards,wardPatientsCurrent,loops,data,wardTransfers,currentLoop = 0):
+    # while currentLoop < loops:
+    dh_input,pruh_input = simulateNewPatients()
     wardPatientsFuture = [0]*len(wards)
+    wardPatientsFuture[wards.index("PRUH.EmergencyDept.PRUH")] += pruh_input
+    wardPatientsFuture[wards.index("KCH.EmergencyDept.DH")] += dh_input
     for i in range(len(wards)):
-        while wardPatientsCurrent[i]>0:
-            target = targetfromsource(wards[i],data)
-            wardPatientsFuture[wards.index(target)]+=1
-            wardPatientsCurrent[i]-=1
+        if wards[i] != "ExitHospital.PRUH" and wards[i] != "ExitHospital.DH" and wards[i] != "ExitHospital.Orpington":
+            while wardPatientsCurrent[i]>0:
+                target = targetfromsource(wards[i],data)
+                wardPatientsFuture[wards.index(target)]+=1
+                wardPatientsCurrent[i]-=1
+                for j in range(len(sources)):
+                    if sources[j] == wards[i] and targets[j] == target:
+                        wardTransfers[j][currentLoop] += 1
+                        break
+        else:
+            wardPatientsFuture[i]+=wardPatientsCurrent[i]
+            wardPatientsCurrent[i] = 0
     currentLoop+=1
     if currentLoop<loops:
-        wardPatientsFuture=simulateHospital(wards,wardPatientsFuture, loops,data, currentLoop)
-    return(wardPatientsFuture)
+        wardPatientsFuture, wardTransfers = simulateHospital(wards,wardPatientsFuture,loops,data,wardTransfers,currentLoop)
+    return(wardPatientsFuture, wardTransfers)
+
+def simulateNewPatients():
+    dh_input = int(np.random.normal(414,54,1))
+    pruh_input = int(np.random.normal(431.71,31.79,1))
+    return(dh_input,pruh_input)
 
 with open('modelProbabalities.csv','rt') as hospInput:
     csv_input = csv.reader(hospInput,delimiter=',')
@@ -39,15 +59,33 @@ myData = np.array(myData)
 
 sources = myData[:,0]
 targets = myData[:,1]
-probs = myData[:,2]
+probs = myData[:,4]
 data = [sources,targets,probs]
 
 wards = sorted(list(set(list(sources) + list(targets))))
 
-wardPatientsCurrent = [1]*len(wards)
+loops = 82
 
-wardPatientsFuture = simulateHospital(wards,wardPatientsCurrent,2,data)
+wardPatientsCurrent = [0]*len(wards)
 
-for i in range(len(wards)):
-    if wardPatientsFuture[i]!= 0:
-        print(wards[i],wardPatientsFuture[i])
+wardTransfers = np.array([[0]*10]*len(sources))
+print("--- Initialising ---")
+wardPatientsCurrent, wardTransfers = simulateHospital(wards,wardPatientsCurrent,5,data,wardTransfers)
+wardTransfers = np.array([[0]*loops]*len(sources))
+print("--- %s seconds ---" % (time.time() - start_time))
+print("--- Initialised ---")
+
+print("--- Starting ---")
+wardPatientsFuture, wardTransfers = simulateHospital(wards,wardPatientsCurrent,loops,data,wardTransfers)
+#
+# for i in range(len(wards)):
+#     if wardPatientsFuture[i]!= 0:
+#         print(wards[i],wardPatientsFuture[i])
+
+with open("simTransfers.csv",'w') as file:
+    writer = csv.writer(file, delimiter=',')
+    writer.writerow(["Source","Target"]+list(range(loops)))
+    for i in range(len(sources)):
+        writer.writerow([sources[i]]+[targets[i]]+list(wardTransfers[i]))
+print("--- Finished ---")
+print("--- %s seconds ---" % (time.time() - start_time))
