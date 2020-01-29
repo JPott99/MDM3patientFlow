@@ -68,7 +68,7 @@ loops = 82
 
 wardPatientsCurrent = [0]*len(wards)
 
-wardTransfers = np.array([[0]*10]*len(sources))
+wardTransfers = np.array([[0]*6]*len(sources))
 print("--- Initialising ---")
 wardPatientsCurrent, wardTransfers = simulateHospital(wards,wardPatientsCurrent,6,data,wardTransfers)
 wardTransfers = np.array([[0]*loops]*len(sources))
