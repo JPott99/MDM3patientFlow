@@ -19,4 +19,11 @@ for i in range(len(sourceTransfers)):
         target = targetTransfers[j][0]
         if source == target:
             input = np.array(sourceNums[i])-np.array(targetNums[j])
-            print(source,input)
+            mean_input = sum(input)/len(input)
+            var_input = 0
+
+            for i in input:
+                var_input += i**2
+            var_input = np.sqrt(var_input/len(input) - mean_input**2)
+            if mean_input > 3:
+                print(source,mean_input,var_input)
