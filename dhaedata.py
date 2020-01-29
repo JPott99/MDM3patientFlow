@@ -11,6 +11,13 @@ data = sorted(data)
 minData = min(data)
 maxData = max(data)
 
+mean_data = sum(data)/len(data)
+var_data = 0
+
+for i in data:
+    var_data += i**2
+var_data = np.sqrt(var_data/len(data) - mean_data**2)
+
 bins = np.linspace(minData,maxData,10)
 # print(data)
 
@@ -59,6 +66,6 @@ for i in binData:
     binSizes.append(len(i))
 
 binSizes = binSizes/np.linalg.norm(np.array(binSizes).reshape(1,-1))
-
+print(mean_data,var_data)
 plt.plot(range(len(binSizes)),binSizes)
 plt.show()
