@@ -15,9 +15,9 @@ if __name__ == "__main__":
     myData = []
     for i in range(len(data)):
         currentData = []
-        currentData.append(data[i][0]) #Source
+        currentData.append(data[i][0]+"."+data[i][1]) #Source
         # currentData.append(data[i][1]) #Site Source
-        currentData.append(data[i][2]) #Target
+        currentData.append(data[i][2]+"."+data[i][3]) #Target
         # currentData.append(data[i][3]) #Site Target
         currentData.append(int(data[i][4])) #Transfers
         currentYear = int(data[i][5]) #Year
@@ -103,10 +103,6 @@ for i in range(len(transferList)):
     for k in range(82):
         if sourceTransfers[j][k]!=0:
             probabilityMatrix[i][k] = transferListNo[i][k]/sourceTransfers[j][k]
-for i in probabilityMatrix:
-    for j in i:
-        if  np.isnan(j) or j>1:
-            j = 0
 
 with open("transferProbability.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
