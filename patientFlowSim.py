@@ -9,7 +9,7 @@ def targetfromsource(source, data, uniform):
     [sources,targets,probs] = data
     patientSource = source
     patientTarget = source
-    randomChance = np.random.randint(1,1e18)/1e18
+    randomChance = np.random.randint(1,2e9)/2e9
     probability = 0
     for i in range(len(sources)):
         if sources[i] == patientSource:
@@ -23,10 +23,7 @@ def targetfromsource(source, data, uniform):
 def simulateHospital(wards,wardPatients,loops,data,wardTransfers,uniform,currentLoop = 0):
     while currentLoop < loops:
         wardPatientsCurrent = wardPatients[-1]
-        # print(wardPatients)
         wardPatients.append(assignment(wards, wardPatientsCurrent,currentLoop, uniform, data))
-        # print(wardPatients)
-        # trackWards.append(wardPatientsCurrent)
         currentLoop+=1
     return(wardPatients, wardTransfers)
 
@@ -91,8 +88,7 @@ print("--- Starting ---")
 uniform = np.random.normal(mu,sigma,loops*len(wards))
 wardPatients = [wardPatients[-1]]
 wardPatients, wardTransfers = simulateHospital(wards,wardPatients,loops,data,wardTransfers,uniform)
-# for i in range(len(wards)):
-#     print(wards[i],np.array(trackWards)[-1,i])
+
 with open("simTransfers.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target"]+list(range(loops)))
