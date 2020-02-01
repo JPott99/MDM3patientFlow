@@ -20,19 +20,30 @@ def targetfromsource(source, data, uniform):
             break
     return(patientTarget)
 
-def simulateHospital(wards,wardPatientsCurrent,loops,data,wardTransfers,uniform,currentLoop = 0):
-    # while currentLoop < loops:
+def simulateHospital(wards,wardPatients,loops,data,wardTransfers,uniform,currentLoop = 0):
+    while currentLoop < loops:
+        wardPatientsCurrent = wardPatients[-1]
+        # print(wardPatients)
+        wardPatients.append(assignment(wards, wardPatientsCurrent,currentLoop, uniform, data))
+        # print(wardPatients)
+        # trackWards.append(wardPatientsCurrent)
+        currentLoop+=1
+    return(wardPatients, wardTransfers)
+
+def assignment(wards, wardPatientsCurrency,currentLoop, uniform, data):
     dh_input,pruh_input = simulateNewPatients()
     wardPatientsFuture = [0]*len(wards)
     wardPatientsFuture[wards.index("PRUH.EmergencyDept.PRUH")] += pruh_input
     wardPatientsFuture[wards.index("KCH.EmergencyDept.DH")] += dh_input
+    wardPatientsCurrent = wardPatientsCurrency
     for i in range(len(wards)):
         if wards[i] != "ExitHospital.PRUH" and wards[i] != "ExitHospital.DH" and wards[i] != "ExitHospital.Orpington":
-            while wardPatientsCurrent[i]>0:
+            counter = wardPatientsCurrent[i]
+            while counter>0:
                 uniformNo = uniform[currentLoop*len(wards)+i]
                 target = targetfromsource(wards[i],data, uniformNo)
                 wardPatientsFuture[wards.index(target)]+=1
-                wardPatientsCurrent[i]-=1
+                counter-=1
                 for j in range(len(sources)):
                     if sources[j] == wards[i] and targets[j] == target:
                         wardTransfers[j][currentLoop] += 1
@@ -40,10 +51,7 @@ def simulateHospital(wards,wardPatientsCurrent,loops,data,wardTransfers,uniform,
         else:
             wardPatientsFuture[i]+=wardPatientsCurrent[i]
             wardPatientsCurrent[i] = 0
-    currentLoop+=1
-    if currentLoop<loops:
-        wardPatientsFuture, wardTransfers = simulateHospital(wards,wardPatientsFuture,loops,data,wardTransfers,uniform,currentLoop)
-    return(wardPatientsFuture, wardTransfers)
+    return (wardPatientsFuture)
 
 def simulateNewPatients():
     dh_input = int(np.random.normal(414,54,1))
@@ -64,32 +72,36 @@ probs = myData[:,4]
 data = [sources,targets,probs]
 
 wards = sorted(list(set(list(sources) + list(targets))))
-
+###############################################################################
 loops = 82
-
-wardPatientsCurrent = [0]*len(wards)
+###############################################################################
+wardPatientsCurrent = [[0]*len(wards)]
 
 wardTransfers = np.array([[0]*6]*len(sources))
 print("--- Initialising ---")
 mu = 1; sigma = 1/6
 uniform = np.random.normal(mu,sigma,6*len(wards))
-wardPatientsCurrent, wardTransfers = simulateHospital(wards,wardPatientsCurrent,6,data,wardTransfers,uniform)
+
+wardPatients, wardTransfers = simulateHospital(wards,wardPatientsCurrent,6,data,wardTransfers,uniform)
 wardTransfers = np.array([[0]*loops]*len(sources))
 print("--- %s seconds ---" % (time.time() - start_time))
 print("--- Initialised ---")
 
 print("--- Starting ---")
 uniform = np.random.normal(mu,sigma,loops*len(wards))
-wardPatientsFuture, wardTransfers = simulateHospital(wards,wardPatientsCurrent,loops,data,wardTransfers,uniform)
-#
+wardPatients = [wardPatients[-1]]
+wardPatients, wardTransfers = simulateHospital(wards,wardPatients,loops,data,wardTransfers,uniform)
 # for i in range(len(wards)):
-#     if wardPatientsFuture[i]!= 0:
-#         print(wards[i],wardPatientsFuture[i])
-
+#     print(wards[i],np.array(trackWards)[-1,i])
 with open("simTransfers.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target"]+list(range(loops)))
     for i in range(len(sources)):
         writer.writerow([sources[i]]+[targets[i]]+list(wardTransfers[i]))
+with open("simPatients.csv",'w') as file:
+    writer = csv.writer(file, delimiter=',')
+    writer.writerow(["Ward"]+list(range(loops+1)))
+    for i in range(len(wards)):
+        writer.writerow([wards[i]]+list(np.array(wardPatients)[:,i]))
 print("--- %s seconds ---" % (time.time() - start_time))
 print("--- Finished ---")
