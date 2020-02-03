@@ -88,12 +88,15 @@ print("--- Starting ---")
 uniform = np.random.normal(mu,sigma,loops*len(wards))
 wardPatients = [wardPatients[-1]]
 wardPatients, wardTransfers = simulateHospital(wards,wardPatients,loops,data,wardTransfers,uniform)
-
+transfers = []
+for i in range(len(sources)):
+    transfers.append([sources[i]]+[targets[i]]+list(wardTransfers[i]))
+transfers = sorted(transfers,key = lambda x: x[0])
 with open("simTransfers.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target"]+list(range(loops)))
-    for i in range(len(sources)):
-        writer.writerow([sources[i]]+[targets[i]]+list(wardTransfers[i]))
+    for i in range(len(transfers)):
+        writer.writerow(transfers[i])
 with open("simPatients.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Ward"]+list(range(loops+1)))
