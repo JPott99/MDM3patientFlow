@@ -1,6 +1,7 @@
 import csv
 import numpy as np
 import time
+import importHospData as iH
 
 start_time = time.time()
 
@@ -59,8 +60,8 @@ with open('data/modelProbabalities.csv','rt') as hospInput:
     csv_input = csv.reader(hospInput,delimiter=',')
     myDataHeaders = next(csv_input)
     myData = list(csv_input)
-
-myData = sorted(myData[1:-1:2],key=lambda x: -float(x[2]))
+iH.stripNewLine(myData)
+myData = sorted(myData,key=lambda x: -float(x[2]))
 myData = np.array(myData)
 
 sources = myData[:,0]

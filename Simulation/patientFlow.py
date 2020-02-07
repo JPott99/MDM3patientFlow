@@ -1,6 +1,7 @@
 import importHospData as iH
 import numpy as np
 import csv
+import sys
 
 myData,myDataHeaders,sourceTransfers,sourceTransfersHeaders,targetTransfers,targetTransfersHeaders,transfers,tranfersHeadings,transProb,transProbHeaders = iH.importData()
 
@@ -50,13 +51,13 @@ def findTotalFlowDifference(sourceTransfers,targetTransfers):
             differences.append([sourceTransfers[i],difference])
     return(differences)
 
-differences = findTotalFlowDifference(sourceTransfers[1:-1:2],targetTransfers[1:-1:2])
+differences = findTotalFlowDifference(sourceTransfers,targetTransfers)
 with open("data/flowDifferences.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Location","Difference"])
     writer.writerows(differences)
 
-modelProb,modelProbZeros,modelProbLink = findMeanProbs(transProb[1:-1:2])
+modelProb,modelProbZeros,modelProbLink = findMeanProbs(transProb)
 
 with open("data/modelProbabalities.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
