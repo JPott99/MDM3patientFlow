@@ -55,12 +55,12 @@ def simulateNewPatients():
     pruh_input = int(np.random.normal(431.71,31.79,1))
     return(dh_input,pruh_input)
 
-with open('modelProbabalities.csv','rt') as hospInput:
+with open('data/modelProbabalities.csv','rt') as hospInput:
     csv_input = csv.reader(hospInput,delimiter=',')
     myDataHeaders = next(csv_input)
     myData = list(csv_input)
 
-myData = sorted(myData,key=lambda x: -float(x[2]))
+myData = sorted(myData[1:-1:2],key=lambda x: -float(x[2]))
 myData = np.array(myData)
 
 sources = myData[:,0]
@@ -92,12 +92,12 @@ transfers = []
 for i in range(len(sources)):
     transfers.append([sources[i]]+[targets[i]]+list(wardTransfers[i]))
 transfers = sorted(transfers,key = lambda x: x[0])
-with open("simTransfers.csv",'w') as file:
+with open("data/simTransfers.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target"]+list(range(loops)))
     for i in range(len(transfers)):
         writer.writerow(transfers[i])
-with open("simPatients.csv",'w') as file:
+with open("data/simPatients.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Ward"]+list(range(loops+1)))
     for i in range(len(wards)):

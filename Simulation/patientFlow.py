@@ -47,18 +47,18 @@ def findTotalFlowDifference(sourceTransfers,targetTransfers):
             if sourceTransfers[i][0] == targetTransfers[j][0]:
                 difference+=targetTransference[j][0]
         if difference!=-sourceTransference[i][0]:
-            differences.append([sourceTransfers[i][0],difference])
+            differences.append([sourceTransfers[i],difference])
     return(differences)
 
-differences = findTotalFlowDifference(sourceTransfers,targetTransfers)
-with open("flowDifferences.csv",'w') as file:
+differences = findTotalFlowDifference(sourceTransfers[1:-1:2],targetTransfers[1:-1:2])
+with open("data/flowDifferences.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Location","Difference"])
     writer.writerows(differences)
 
-modelProb,modelProbZeros,modelProbLink = findMeanProbs(transProb)
+modelProb,modelProbZeros,modelProbLink = findMeanProbs(transProb[1:-1:2])
 
-with open("modelProbabalities.csv",'w') as file:
+with open("data/modelProbabalities.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target","Probability","Number of Zero", "Total Prob"])
     for i in range(len(modelProb)):

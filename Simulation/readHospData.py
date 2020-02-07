@@ -2,15 +2,10 @@ import csv
 import numpy as np
 
 if __name__ == "__main__":
-    with open('pone0185912s003.csv', 'rt') as f_input:
+    with open('data/pone0185912s003.csv', 'rt') as f_input:
         csv_input = csv.reader(f_input, delimiter=',')
         header = next(csv_input)
         data = list(csv_input)
-
-    maxWeek = 0
-    maxYear = 0
-    minWeek = 10000
-    minYear = 10000
 
     myData = []
     for i in range(len(data)):
@@ -32,7 +27,7 @@ if __name__ == "__main__":
         myData.append(currentData)
 
     #myData form is [Source, Target, Transfers, Week]
-with open("hospitalData.csv",'w') as file:
+with open("data/hospitalData.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target","Transfers","Week"])
     writer.writerows(myData)
@@ -67,7 +62,7 @@ for i in range(len(myData)):
         transferListNo[transferListLen-1][week]+=transferNo
     else:
         transferListNo[transferList.index(pairing)][week]+=transferNo
-with open("transfers.csv",'w') as file:
+with open("data/transfers.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target"]+list(range(82)))
     for i in range(len(transferList)):
@@ -79,7 +74,7 @@ for i in range(len(transferList)):
     source = transferList[i][0]
     j = Sources.index(source)
     sourceTransfers[j] += transferListNoNp[i]
-with open("sourceTransfers.csv",'w') as file:
+with open("data/sourceTransfers.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source"]+list(range(82)))
     for i in range(len(Sources)):
@@ -90,7 +85,7 @@ for i in range(len(transferList)):
     target = transferList[i][1]
     j = Targets.index(target)
     targetTransfers[j] += transferListNoNp[i]
-with open("targetTransfers.csv",'w') as file:
+with open("data/targetTransfers.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Target"]+list(range(82)))
     for i in range(len(Targets)):
@@ -104,7 +99,7 @@ for i in range(len(transferList)):
         if sourceTransfers[j][k]!=0:
             probabilityMatrix[i][k] = transferListNo[i][k]/sourceTransfers[j][k]
 
-with open("transferProbability.csv",'w') as file:
+with open("data/transferProbability.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target"]+list(range(82)))
     for i in range(len(transferList)):
