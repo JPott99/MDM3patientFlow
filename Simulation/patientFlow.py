@@ -1,7 +1,6 @@
 import importHospData as iH
 import numpy as np
 import csv
-import sys
 
 myData,myDataHeaders,sourceTransfers,sourceTransfersHeaders,targetTransfers,targetTransfersHeaders,transfers,tranfersHeadings,transProb,transProbHeaders = iH.importData()
 
@@ -18,7 +17,7 @@ def findMeanProbs(transProb):
                 modelProbZeros[i]+=1
     modelProb = []
     for i in range(len(noProb)):
-        avgDiv = 82#len(noProb[i])-modelProbZeros[i]
+        avgDiv = 82
         modelProb.append(sum(noProb[i])/(avgDiv))
 
     modelProb = np.array(modelProb)
@@ -48,7 +47,7 @@ def findTotalFlowDifference(sourceTransfers,targetTransfers):
             if sourceTransfers[i][0] == targetTransfers[j][0]:
                 difference+=targetTransference[j][0]
         if difference!=-sourceTransference[i][0]:
-            differences.append([sourceTransfers[i],difference])
+            differences.append([sourceTransfers[i][0],difference])
     return(differences)
 
 differences = findTotalFlowDifference(sourceTransfers,targetTransfers)
