@@ -1,6 +1,19 @@
 import csv
 import numpy as np
 
+#This program takes the original dataset and reformats it into:
+#    hospitalData.csv:  A slightly cleaner file with wards and cites appened,
+#                       and the time shown in weeks since start.
+#    transfers.csv: A restructured format which all transfers are shown
+#                   in the same row as the transfer source and target.
+#    sourceTransfers.csv:   A file showing the number of transfers from each
+#                           applicable ward per week.
+#    targetTransfers.csv:  A file showing the number of transfers to each
+#                          applicable ward per week.
+#    transferProbability.csv:   A file showing the relative rates per transfer.
+
+
+#This program must be run as a prerequisite to running patientFlowSim.py.
 if __name__ == "__main__":
     with open('data/pone0185912s003.csv', 'rt') as f_input:
         csv_input = csv.reader(f_input, delimiter=',')
