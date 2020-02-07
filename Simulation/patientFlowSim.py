@@ -3,6 +3,7 @@ import numpy as np
 import time
 import importHospData as iH
 import findHospInput as fHi
+import findProbs as fP
 
 start_time = time.time()
 
@@ -57,17 +58,21 @@ def simulateNewPatients(aeinput):
     pruh_input = int(np.random.normal(aeinput[1][1],aeinput[1][2],1))
     return(dh_input,pruh_input)
 
-with open('data/modelProbabalities.csv','rt') as hospInput:
-    csv_input = csv.reader(hospInput,delimiter=',')
-    myDataHeaders = next(csv_input)
-    myData = list(csv_input)
-iH.stripNewLine(myData)
+print("--- Initialising ---")
+hospData = iH.importData()
+
+myData = fP.findMeanProbs(hospData)
+# with open('data/modelProbabalities.csv','rt') as hospInput:
+#     csv_input = csv.reader(hospInput,delimiter=',')
+#     myDataHeaders = next(csv_input)
+#     myData = list(csv_input)
+
 myData = sorted(myData,key=lambda x: -float(x[2]))
 myData = np.array(myData)
 
 sources = myData[:,0]
 targets = myData[:,1]
-probs = myData[:,4]
+probs = myData[:,2]
 data = [sources,targets,probs]
 
 wards = sorted(list(set(list(sources) + list(targets))))
@@ -77,10 +82,9 @@ loops = 82
 wardPatientsCurrent = [[0]*len(wards)]
 
 wardTransfers = np.array([[0]*6]*len(sources))
-print("--- Initialising ---")
 mu = 1; sigma = 1/6
 uniform = np.random.normal(mu,sigma,6*len(wards))
-aeinputs = fHi.getInputs()
+aeinputs = fHi.getInputs(hospData)
 wardPatients, wardTransfers = simulateHospital(wards,wardPatientsCurrent,6,data,wardTransfers,uniform,aeinputs)
 wardTransfers = np.array([[0]*loops]*len(sources))
 print("--- %s seconds ---" % (time.time() - start_time))

@@ -1,8 +1,7 @@
-import importHospData as iH
 import numpy as np
 
-def getInputs():
-    myData,myDataHeaders,sourceTransfers,sourceTransfersHeaders,targetTransfers,targetTransfersHeaders,transfers,tranfersHeaders,transProb,transProbHeaders=iH.importData()
+def getInputs(data):
+    myData,myDataHeaders,sourceTransfers,sourceTransfersHeaders,targetTransfers,targetTransfersHeaders,transfers,tranfersHeaders,transProb,transProbHeaders=data
     sourceNum = np.array(sourceTransfers)[:,1:]
     sourceNums = []
     for i in range(len(sourceNum)):
