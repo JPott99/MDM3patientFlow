@@ -2,6 +2,7 @@ import csv
 import numpy as np
 import time
 import importHospData as iH
+import findHospInput as fHi
 
 start_time = time.time()
 
@@ -21,15 +22,15 @@ def targetfromsource(source, data, uniform):
             break
     return(patientTarget)
 
-def simulateHospital(wards,wardPatients,loops,data,wardTransfers,uniform,currentLoop = 0):
+def simulateHospital(wards,wardPatients,loops,data,wardTransfers,uniform,aeinput,currentLoop = 0):
     while currentLoop < loops:
         wardPatientsCurrent = wardPatients[-1]
-        wardPatients.append(assignment(wards, wardPatientsCurrent,currentLoop, uniform, data))
+        wardPatients.append(assignment(wards, wardPatientsCurrent,currentLoop, uniform, data,aeinput))
         currentLoop+=1
     return(wardPatients, wardTransfers)
 
-def assignment(wards, wardPatientsCurrency,currentLoop, uniform, data):
-    dh_input,pruh_input = simulateNewPatients()
+def assignment(wards, wardPatientsCurrency,currentLoop, uniform, data, aeinput):
+    dh_input,pruh_input = simulateNewPatients(aeinput)
     wardPatientsFuture = [0]*len(wards)
     wardPatientsFuture[wards.index("PRUH.EmergencyDept.PRUH")] += pruh_input
     wardPatientsFuture[wards.index("KCH.EmergencyDept.DH")] += dh_input
@@ -51,9 +52,9 @@ def assignment(wards, wardPatientsCurrency,currentLoop, uniform, data):
             wardPatientsCurrent[i] = 0
     return (wardPatientsFuture)
 
-def simulateNewPatients():
-    dh_input = int(np.random.normal(414,54,1))
-    pruh_input = int(np.random.normal(431.71,31.79,1))
+def simulateNewPatients(aeinput):
+    dh_input = int(np.random.normal(aeinput[0][1],aeinput[0][2],1))
+    pruh_input = int(np.random.normal(aeinput[1][1],aeinput[1][2],1))
     return(dh_input,pruh_input)
 
 with open('data/modelProbabalities.csv','rt') as hospInput:
@@ -79,8 +80,8 @@ wardTransfers = np.array([[0]*6]*len(sources))
 print("--- Initialising ---")
 mu = 1; sigma = 1/6
 uniform = np.random.normal(mu,sigma,6*len(wards))
-
-wardPatients, wardTransfers = simulateHospital(wards,wardPatientsCurrent,6,data,wardTransfers,uniform)
+aeinputs = fHi.getInputs()
+wardPatients, wardTransfers = simulateHospital(wards,wardPatientsCurrent,6,data,wardTransfers,uniform,aeinputs)
 wardTransfers = np.array([[0]*loops]*len(sources))
 print("--- %s seconds ---" % (time.time() - start_time))
 print("--- Initialised ---")
@@ -88,7 +89,7 @@ print("--- Initialised ---")
 print("--- Starting ---")
 uniform = np.random.normal(mu,sigma,loops*len(wards))
 wardPatients = [wardPatients[-1]]
-wardPatients, wardTransfers = simulateHospital(wards,wardPatients,loops,data,wardTransfers,uniform)
+wardPatients, wardTransfers = simulateHospital(wards,wardPatients,loops,data,wardTransfers,uniform,aeinputs)
 transfers = []
 for i in range(len(sources)):
     transfers.append([sources[i]]+[targets[i]]+list(wardTransfers[i]))
