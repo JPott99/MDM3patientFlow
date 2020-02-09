@@ -1,0 +1,57 @@
+Medical Ward Analysis:
+Cases in which Medical Ward is the source:
+  All MWs seem to feed into PlannedInvestigations, ExitHospital, and
+	DischargeLounge. Asides from that, there are very occasional transfers to
+	other wards, save for MedicalWard9 which sees a consistent output to various
+	seemingly random wards. (AcuteMedicalUnit,ChartwellUnit,CoronaryCareUnit.PRUH
+	(also somewhat served by 8),FarnboroughWard, HyperAcuteStrokeUnit.PRUH,
+	IntensiveCare.HighDepUnit(slightly), SurgicalWard1, SurgicalWard2 (also 7),
+	SurgicalWard3,SurgicalWard4,SurgicalWard5,SurgicalWard6,SurgicalWard7)
+
+Cases in which Medical ward is the target:
+  They all receive transfers from the AcuteMedical Unit. However, ward 9
+	receives a very significant intake from EmergencyDepartment (while the others
+	receive steady but small A&E intake). Ward 9 also receives a slightly larger
+	amount from Clinincal Decisions.
+
+Cases of transference from one medical ward to another:
+  Almost every inter-MedWard transfer is from ward 9.
+
+Simultion Cross-referencing:
+ Looking at the number of patients within each MedWard in the simulation of
+ patient numbers, ward9 has over 10 times the patients of each of the other
+ wards.
+
+The conclusion to this analysis, is that on the most part, wards 1-8 behave in
+a similar way, whereas most of the intake into wards is via ward 9, which takes
+most of the Emergency cases.
+
+
+Surgical Ward Analysis:
+
+Note: Ward 7 is labelled as Ortho, marking it out as potentially separate.
+
+Source:
+  Wards 3-6 have significant output into the discharge lounge, while all wards
+	(1-7) have a significant output to ExitHospital
+
+Target:
+  1-2 receive a fairly large amount from AcuteMedical, 3-6 receive some, and 7
+	receives a small amount. 4-6 receive a fair amount from the clinalDecisions
+	unit. 3-7 receive a fairly large input from Farnbouroug around 30 weeks into
+	the data. 3,5, and 6 get a fairly steady amount from intensive care. 3-6
+	receive a large input from EmergencyDept, while 7 also receives some, though
+	much less. A similar trend is observed with RecoveryWard1.
+
+Both:
+  Ward 3 transfers to 5-7 rather frequently. 4 transfers to 3, 5-7 alot. 5
+	transfers to 6-7 significantly. 6 -> 3-5,7 somewhat. 7 -> 3 but infrequently.
+
+Sim Count:
+  1,2,6, and 7 all seem a bit smaller tham 3-5
+
+Conclusion:
+  For the most part the wards all seem to behave in a similar way, except they
+	vary in size, so the smaller wards (1-2) never register significant activity.
+	They could probably all be clustered into SurgicalWards without too much
+	change.
