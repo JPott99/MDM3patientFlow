@@ -23,13 +23,13 @@ if __name__ == "__main__":
     myData = []
     for i in range(len(data)):
         currentData = []
+        # The ward names and site codes are appended.
         currentData.append(data[i][0]+"."+data[i][1]) #Source
-        # currentData.append(data[i][1]) #Site Source
         currentData.append(data[i][2]+"."+data[i][3]) #Target
-        # currentData.append(data[i][3]) #Site Target
         currentData.append(int(data[i][4])) #Transfers
         currentYear = int(data[i][5]) #Year
         currentWeek = int(data[i][6]) #Week of Year
+        # Convert weeks in a year to weeks from start.
         if currentYear == 2014:
             currentWeek = currentWeek-48
         if currentYear == 2015:
@@ -41,6 +41,7 @@ if __name__ == "__main__":
 
     #myData form is [Source, Target, Transfers, Week]
 with open("data/hospitalData.csv",'w') as file:
+    # Outputs data with combined names and weeks since start.
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target","Transfers","Week"])
     writer.writerows(myData)
@@ -76,6 +77,7 @@ for i in range(len(myData)):
     else:
         transferListNo[transferList.index(pairing)][week]+=transferNo
 with open("data/transfers.csv",'w') as file:
+    #Shows data in form of Source, Target, Transfer in Week n
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target"]+list(range(82)))
     for i in range(len(transferList)):
@@ -88,6 +90,7 @@ for i in range(len(transferList)):
     j = Sources.index(source)
     sourceTransfers[j] += transferListNoNp[i]
 with open("data/sourceTransfers.csv",'w') as file:
+    # Shows transfers from each source per week
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source"]+list(range(82)))
     for i in range(len(Sources)):
@@ -99,11 +102,13 @@ for i in range(len(transferList)):
     j = Targets.index(target)
     targetTransfers[j] += transferListNoNp[i]
 with open("data/targetTransfers.csv",'w') as file:
+    # Shows transfers to each target per week.
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Target"]+list(range(82)))
     for i in range(len(Targets)):
         writer.writerow([Targets[i]]+list(targetTransfers[i]))
 
+# Calculates the differents rates of transfer from each source-target.
 probabilityMatrix = transferListNo
 for i in range(len(transferList)):
     source = transferList[i][0]

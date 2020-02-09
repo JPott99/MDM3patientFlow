@@ -1,12 +1,14 @@
 import csv
 
 def stripNewLine(data):
-    while [] in data:
-        data.remove([])
-    return(data)
+    # This adds support for Windows, which will add newline characters between
+    # each row, which will confuse the system.
+    strippedData = [x for x in data if x != []]
+    return(strippedData)
 
 
 def importData():
+    # Load all of the data generated in readHospData, and remove newlines.
     with open('data/hospitalData.csv','rt') as hospInput:
         csv_input = csv.reader(hospInput,delimiter=',')
         myDataHeaders = next(csv_input)
