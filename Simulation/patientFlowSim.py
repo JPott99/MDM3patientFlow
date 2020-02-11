@@ -41,18 +41,11 @@ def simulateHospital(wards,wardPatients,loops,data,wardTransfers,uniform,aeinput
         currentLoop+=1
     return(wardPatients, wardTransfers)
 
-def simulateNewPatients(aeinput):
-    # Uses findHospInput to find the number of patients entering the hospital.
-    # We currently assume that all patients enter via the EmergencyDepts, as
-    # it has the only significant input-output difference.
-    dh_input = int(np.random.normal(aeinput[0][1],aeinput[0][2],1))
-    pruh_input = int(np.random.normal(aeinput[1][1],aeinput[1][2],1))
-    return(dh_input,pruh_input)
-
 
 def assignment(wards, wardPatientsCurrent,currentLoop, uniform, data, aeinput):
 
-    dh_input,pruh_input = simulateNewPatients(aeinput)
+    dh_input = aeinput[0][currentLoop]
+    pruh_input = aeinput[1][currentLoop]
     wardPatientsCurrent[wards.index("PRUH.EmergencyDept.PRUH")] += pruh_input
     wardPatientsCurrent[wards.index("KCH.EmergencyDept.DH")] += dh_input
 
@@ -105,13 +98,19 @@ wardTransfers = np.array([[0]*5]*len(sources))
 mu = 1; sigma = 1/6 #mu and sigma were selected to roughly scale to the data.
 uniform = np.random.normal(mu,sigma,5*len(wards))
 # We calculate uniform in advance to improve performance.
-aeinputs = fHi.getInputs(hospData)
+aeinput = fHi.getInputs(hospData)
+dh_input = np.random.normal(aeinput[0][1],aeinput[0][2],5)
+pruh_input = np.random.normal(aeinput[1][1],aeinput[1][2],5)
+aeinputs = [dh_input,pruh_input]
 wardPatients, wardTransfers = simulateHospital(wards,wardPatientsCurrent,5,data,wardTransfers,uniform,aeinputs)
 ###############################################################################
 # Having initialised the hospital, we can now run the simulation.
 wardTransfers = np.array([[0]*loops]*len(sources))
 uniform = np.random.normal(mu,sigma,loops*len(wards))
 wardPatients = [wardPatients[-1]]
+dh_input = np.random.normal(aeinput[0][1],aeinput[0][2],loops)
+pruh_input = np.random.normal(aeinput[1][1],aeinput[1][2],loops)
+aeinputs = [dh_input,pruh_input]
 wardPatients, wardTransfers = simulateHospital(wards,wardPatients,loops,data,wardTransfers,uniform,aeinputs)
 transfers = []
 for i in range(len(sources)):
