@@ -1,0 +1,63 @@
+﻿Ward_Name,Floor,Ward_Use,Total_Capacity,Hospital,Data_Name,Key_Word
+Adult Cystic Fibrosis Unit,2,specialist inpatient care,9,DH,AdultCysticFibrosisUnit,specialist 
+Annie Zunz Ward,1,acute medical unit ,0,DH,AnnieZunz,acute 
+Brunel Emergency Surgical Unit,2,emergency surgical unit for assessment ,0,DH,BrunelAdmissionsLounge,emergency assessment 
+Byron Ward,6,"health and aging unit, treating and rehabilitating the elderly",19,DH,Byron,elderly
+Cheere Ward,1,kidney disorders,14,DH,Cheere,kidney
+Christine Brown Critical Care Unit (CCU),2,critical care ,18,DH,ChristineBrownCriticalCare,critical care 
+Coptcoat Ward,2,surgical short stay ,16,DH,Coptcoat,surgical
+Cotton Ward,1,"vascular, circulatory or liver and gall bladder conditions.",26,DH,Cotton,liver
+David Marsden Ward,3,accute chronic neurologic condition,0,DH,DavidMarsden,neuro
+Davidson Ward,2,blood disorders,17,DH,Davidson,blood
+Dawson Ward,1,liver and hepatobiliary,21,DH,Dawson,liver
+Derek Mitchell Unit,2,chemotherapy and bone marrow transplant unit,14,DH,DerekMitchellUnit,chemotherapy
+Donne Ward,8,"assessing, treating and rehabilitating frail older people",30,DH,Donne,elderly
+ELF and LIBRA,3,blood conditions ,16,DH,ElfandLibra,blood
+Fisk Ward,1,kidney disorders,16,DH,Fisk,kidney
+Frank Cooksey Rehabilitation Unit,1,specialist rehabilitation for recovery from various problems,15,DH,FrankCooksey,recovery
+Friends Stroke Unit,5,stroke patients,20,DH,TheFriendsStrokeUnit,stroke
+Guthrie Ward,1, some NHS patients and some international and private patients,21,DH,Guthrie,international and private
+Howard Ward,2,liver conditions,16,DH,Howard,liver
+Katherine Monk Ward,2,surgical ward,26,DH,KatherineMonk,surgical
+Kinnier Wilson Ward,1,emergency neurosurgical ward,20,DH,KinnierWilson,neuro
+Lister Ward,1,surgical ward,28,DH,Lister,surgical
+Liver Intensive Therapy Unit,2,liver problems,19,DH,LiverICU,liver
+Lonsdale Ward,2,respiratory problems,25,DH,Lonsdale,respiratory
+Marjory Warren Ward,7,sensory' ward for frail older people,30,DH,MarjorieWarren,elderly
+Mary Ray Ward,1,diabetes and endocrine conditions,30,DH,MaryRay,diabetes
+Matthew Whiting Ward,1,gastrointentional conditions,25,DH,MatthewWhiting,gastrointentional
+Murray Falconer Ward,2, elective brain or spine neurosurgery,31,DH,MurrayFalconer,neuro
+Oliver Ward,0,"general medical, respiratory, gastroenterology and sexual health conditions.",30,DH,Oliver,general 
+RD Lawrence Ward,0,acute medical unit,0,DH,RDLawrence,acute 
+Sam Oram Ward,2,cardiac conditions,25,DH,CoronaryCareUnit.SamOram.,cardiac 
+Todd Ward,2,liver relared problems and transplants,21,DH,Todd,liver
+Trundle Ward,2,orthopaedic surgery ,16,DH,Trundle,orthopaedic 
+Twining Ward,1,mixed adult ward,0,DH,Twining,mixed adult ward
+Victoria and Albert Ward,2,heart disorders,32,DH,Victoria.Albert,cardiac
+Waddington Ward,2,bone marrow transplants,9,DH,Waddington,blood
+Boddington Ward,2,Elective Orthopaedic Surgery,0,OP,Boddington.ORP.,orthopaedic
+Ontario ward,1,Neuro-rehabilitation and step-down,0,OP,Ontario.ORP.,neuro
+Quebec ward,2,Elective Orthopaedic Surgery,0,OP,Quebec.ORP.,orthopaedic
+Chartwell Centre,0,"	Cancer and specialist blood services",0,PRUH,ChartwellUnit,cancer
+Acute Medical Unit 1,1,Acute Medicine,0,PRUH,AcuteMedicalUnit.EAU,acute
+Acute Medical Unit 2,1,Acute Medicine,0,PRUH,AcuteSurgicalUnit?,acute
+Emergency Department,1,emergency ,0,PRUH,PRUH.EmergencyDept,emergency 
+Farnborough,2,Respiratory,0,PRUH,FarnboroughWard,respiratory
+Hyperacute Stroke Unit (HASU),0,stroke patients,0,PRUH,HASU.HyperAcuteStrokeUnit.PRUH.,stroke
+Intensive Care Unit,2,Intensive care ,0,PRUH,IntensiveCare.HighDepUnit.PRUH.,intensive care 
+Medical 1,0,Acute Respiratory,0,PRUH,MedicalWard1,respiratory
+Medical 2,0,Respiratory,0,PRUH,MedicalWard2,respiratory
+Medical 3,0,Frailty Unit,0,PRUH,MedicalWard3,frailty
+Medical 4,0,Elderly Care,0,PRUH,MedicalWard4,elderly
+Medical 5/Stroke Unit,0,stroke unit,0,PRUH,StrokeUnit.PRUH.,stroke
+Medical 6,1,medicine,0,PRUH,MedicalWard6,general
+Medical 7,1,general medicine,0,PRUH,MedicalWard7,general
+Medical 8,1,cardiac and medicine ,0,PRUH,MedicalWard8,cardiac
+Planned Investigation Unit (PIU),1,"investigation, tests",0,PRUH,PlannedInvestigationUnit,investigation
+Darwin 1 (Surgical 1),2,Elderly Care,0,PRUH,SurgicalWard1.Darwin1.,elderly
+Darwin 2 (Surgical 2),2,Elderly Care,0,PRUH,SurgicalWard2.Darwin2.,elderly
+Surgical 3,2,Elective Surgery,0,PRUH,SurgicalWard3.SAU.,surgical
+Surgical 4,2,Acute Surgery (ASU),0,PRUH,SurgicalWard4,surgical
+Surgical 5,2,General Surgery,0,PRUH,SurgicalWard5,surgical
+Surgical 6,2,Urology,0,PRUH,SurgicalWard6,urology
+Surgical 7,2,Orthopaedics – geriatrics,0,PRUH,SurgicalWard7.Ortho.,orthopaedic
