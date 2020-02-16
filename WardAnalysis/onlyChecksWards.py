@@ -49,7 +49,7 @@ for i in transfers:
 medS = sorted(medS,key=lambda x: x[1])
 surS = sorted(surS,key=lambda x: x[1])
 
-medwardS =np.array([[0]*82]*9)
+medwardS =np.array([[0]*82]*8)
 for i in medwardS:
     i = np.array(i)
 for i in range(len(medS)):
@@ -61,17 +61,15 @@ for i in range(len(medS)):
         medwardS[2]+=np.array(list(map(int,medS[i][2:])))
     elif "4" in medS[i][0]:
         medwardS[3]+=np.array(list(map(int,medS[i][2:])))
-    elif "5" in medS[i][0]:
-        medwardS[4]+=np.array(list(map(int,medS[i][2:])))
     elif "6" in medS[i][0]:
-        medwardS[5]+=np.array(list(map(int,medS[i][2:])))
+        medwardS[4]+=np.array(list(map(int,medS[i][2:])))
     elif "7" in medS[i][0]:
-        medwardS[6]+=np.array(list(map(int,medS[i][2:])))
+        medwardS[5]+=np.array(list(map(int,medS[i][2:])))
     elif "8" in medS[i][0]:
-        medwardS[7]+=np.array(list(map(int,medS[i][2:])))
+        medwardS[6]+=np.array(list(map(int,medS[i][2:])))
     elif "9" in medS[i][0]:
-        medwardS[8]+=np.array(list(map(int,medS[i][2:])))
-medwardT =np.array([[0]*82]*9)
+        medwardS[7]+=np.array(list(map(int,medS[i][2:])))
+medwardT =np.array([[0]*82]*8)
 for i in medwardT:
     i = np.array(i)
 for i in range(len(medT)):
@@ -83,33 +81,29 @@ for i in range(len(medT)):
         medwardT[2]+=np.array(list(map(int,medT[i][2:])))
     elif "4" in medT[i][1]:
         medwardT[3]+=np.array(list(map(int,medT[i][2:])))
-    elif "5" in medT[i][1]:
-        medwardT[4]+=np.array(list(map(int,medT[i][2:])))
     elif "6" in medT[i][1]:
-        medwardT[5]+=np.array(list(map(int,medT[i][2:])))
+        medwardT[4]+=np.array(list(map(int,medT[i][2:])))
     elif "7" in medT[i][1]:
-        medwardT[6]+=np.array(list(map(int,medT[i][2:])))
+        medwardT[5]+=np.array(list(map(int,medT[i][2:])))
     elif "8" in medT[i][1]:
-        medwardT[7]+=np.array(list(map(int,medT[i][2:])))
+        medwardT[6]+=np.array(list(map(int,medT[i][2:])))
     elif "9" in medT[i][1]:
-        medwardT[8]+=np.array(list(map(int,medT[i][2:])))
+        medwardT[7]+=np.array(list(map(int,medT[i][2:])))
 
 plt.plot(medwardS.transpose())
 plt.grid()
-plt.legend(["1","2","3","4","5","6","7","8","9"],loc="upper left", bbox_to_anchor=(1,1))
+plt.legend(["1","2","3","4","6","7","8","9"],loc="upper left", bbox_to_anchor=(1,1))
 plt.title("Medical Wards as the Transfer Source")
 plt.savefig("data/MedicalS.png")
 plt.clf()
 plt.figure(figsize=(10,5))
-p9 = plt.bar(range(82),medwardS[8],bottom=medwardS[7])
+p9 = plt.bar(range(82),medwardS[7],bottom=medwardS[6])
 
-p8 = plt.bar(range(82),medwardS[7],bottom=medwardS[6])
+p8 = plt.bar(range(82),medwardS[6],bottom=medwardS[5])
 
-p7 = plt.bar(range(82),medwardS[6],bottom=medwardS[5])
+p7 = plt.bar(range(82),medwardS[5],bottom=medwardS[4])
 
-p6 = plt.bar(range(82),medwardS[5],bottom=medwardS[4])
-
-p5 = plt.bar(range(82),medwardS[4],bottom=medwardS[3])
+p6 = plt.bar(range(82),medwardS[4],bottom=medwardS[3])
 
 p4 = plt.bar(range(82),medwardS[3],bottom=medwardS[2])
 
@@ -121,26 +115,24 @@ p1 = plt.bar(range(82),medwardS[0])
 
 plt.title("Medical Wards as the Transfer Source")
 
-plt.legend(["9","8","7","6","5","4","3","2","1"],loc="upper left", bbox_to_anchor=(1,1))
+plt.legend(["9","8","7","6","4","3","2","1"],loc="upper left", bbox_to_anchor=(1,1))
 
 plt.savefig("data/MedicalSBar.png")
 plt.clf()
 plt.plot(medwardT.transpose())
 plt.grid()
-plt.legend(["1","2","3","4","5","6","7","8","9"],loc="upper left", bbox_to_anchor=(1,1))
+plt.legend(["1","2","3","4","6","7","8","9"],loc="upper left", bbox_to_anchor=(1,1))
 plt.title("Medical Wards as the Transfer Target")
 plt.savefig("data/MedicalT.png")
 plt.clf()
 plt.figure(figsize=(10,5))
-p9 = plt.bar(range(82),medwardT[8],bottom=medwardT[7])
+p9 = plt.bar(range(82),medwardT[7],bottom=medwardT[6])
 
-p8 = plt.bar(range(82),medwardT[7],bottom=medwardT[6])
+p8 = plt.bar(range(82),medwardT[6],bottom=medwardT[5])
 
-p7 = plt.bar(range(82),medwardT[6],bottom=medwardT[5])
+p7 = plt.bar(range(82),medwardT[5],bottom=medwardT[4])
 
-p6 = plt.bar(range(82),medwardT[5],bottom=medwardT[4])
-
-p5 = plt.bar(range(82),medwardT[4],bottom=medwardT[3])
+p6 = plt.bar(range(82),medwardT[4],bottom=medwardT[3])
 
 p4 = plt.bar(range(82),medwardT[3],bottom=medwardT[2])
 
@@ -152,7 +144,7 @@ p1 = plt.bar(range(82),medwardT[0])
 
 
 plt.title("Medical Wards as the Transfer Target")
-plt.legend(["9","8","7","6","5","4","3","2","1"],loc="upper left", bbox_to_anchor=(1,1))
+plt.legend(["9","8","7","6","4","3","2","1"],loc="upper left", bbox_to_anchor=(1,1))
 plt.savefig("data/MedicalTBar.png")
 
 surwardS =np.array([[0]*82]*9)
