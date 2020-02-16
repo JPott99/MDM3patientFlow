@@ -100,7 +100,7 @@ plt.legend(["1","2","3","4","5","6","7","8","9"],loc="upper left", bbox_to_ancho
 plt.title("Medical Wards as the Transfer Source")
 plt.savefig("data/MedicalS.png")
 plt.clf()
-plt.figure(figsize=(20,10))
+plt.figure(figsize=(10,5))
 p9 = plt.bar(range(82),medwardS[8],bottom=medwardS[7])
 
 p8 = plt.bar(range(82),medwardS[7],bottom=medwardS[6])
@@ -131,7 +131,7 @@ plt.legend(["1","2","3","4","5","6","7","8","9"],loc="upper left", bbox_to_ancho
 plt.title("Medical Wards as the Transfer Target")
 plt.savefig("data/MedicalT.png")
 plt.clf()
-plt.figure(figsize=(20,10))
+plt.figure(figsize=(10,5))
 p9 = plt.bar(range(82),medwardT[8],bottom=medwardT[7])
 
 p8 = plt.bar(range(82),medwardT[7],bottom=medwardT[6])
@@ -203,6 +203,49 @@ plt.grid()
 plt.legend(["1","2","3","4","5","6","7"],loc="upper left", bbox_to_anchor=(1,1))
 plt.title("Surgical Wards as the Transfer Target")
 plt.savefig("data/SurgicalT.png")
+plt.clf()
+plt.figure(figsize=(10,5))
+
+p7 = plt.bar(range(82),surwardS[6],bottom=surwardS[5])
+
+p6 = plt.bar(range(82),surwardS[5],bottom=surwardS[4])
+
+p5 = plt.bar(range(82),surwardS[4],bottom=surwardS[3])
+
+p4 = plt.bar(range(82),surwardS[3],bottom=surwardS[2])
+
+p3 = plt.bar(range(82),surwardS[2],bottom=surwardS[1])
+
+p2 = plt.bar(range(82),surwardS[1],bottom=surwardS[0])
+
+p1 = plt.bar(range(82),surwardS[0])
+
+plt.title("Surgical Wards as the Transfer Source")
+
+plt.legend(["7","6","5","4","3","2","1"],loc="upper left", bbox_to_anchor=(1,1))
+
+plt.savefig("data/SurgicalSBar.png")
+plt.clf()
+plt.figure(figsize=(10,5))
+
+p7 = plt.bar(range(82),surwardT[6],bottom=surwardT[5])
+
+p6 = plt.bar(range(82),surwardT[5],bottom=surwardT[4])
+
+p5 = plt.bar(range(82),surwardT[4],bottom=surwardT[3])
+
+p4 = plt.bar(range(82),surwardT[3],bottom=surwardT[2])
+
+p3 = plt.bar(range(82),surwardT[2],bottom=surwardT[1])
+
+p2 = plt.bar(range(82),surwardT[1],bottom=surwardT[0])
+
+p1 = plt.bar(range(82),surwardT[0])
+
+
+plt.title("Surgical Wards as the Transfer Target")
+plt.legend(["7","6","5","4","3","2","1"],loc="upper left", bbox_to_anchor=(1,1))
+plt.savefig("data/SurgicalTBar.png")
 with open("data/onlywards.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source", "Target"]+list(range(82)))
