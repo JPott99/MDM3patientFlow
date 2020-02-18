@@ -97,21 +97,21 @@ plt.title("Medical Wards as the Transfer Source")
 plt.savefig("data/MedicalS.png")
 plt.clf()
 plt.figure(figsize=(10,5))
-p9 = plt.bar(range(82),medwardS[7],bottom=medwardS[6])
+p9 = plt.bar(range(52),medwardS[7][4:56],bottom=medwardS[6][4:56])
 
-p8 = plt.bar(range(82),medwardS[6],bottom=medwardS[5])
+p8 = plt.bar(range(52),medwardS[6][4:56],bottom=medwardS[5][4:56])
 
-p7 = plt.bar(range(82),medwardS[5],bottom=medwardS[4])
+p7 = plt.bar(range(52),medwardS[5][4:56],bottom=medwardS[4][4:56])
 
-p6 = plt.bar(range(82),medwardS[4],bottom=medwardS[3])
+p6 = plt.bar(range(52),medwardS[4][4:56],bottom=medwardS[3][4:56])
 
-p4 = plt.bar(range(82),medwardS[3],bottom=medwardS[2])
+p4 = plt.bar(range(52),medwardS[3][4:56],bottom=medwardS[2][4:56])
 
-p3 = plt.bar(range(82),medwardS[2],bottom=medwardS[1])
+p3 = plt.bar(range(52),medwardS[2][4:56],bottom=medwardS[1][4:56])
 
-p2 = plt.bar(range(82),medwardS[1],bottom=medwardS[0])
+p2 = plt.bar(range(52),medwardS[1][4:56],bottom=medwardS[0][4:56])
 
-p1 = plt.bar(range(82),medwardS[0])
+p1 = plt.bar(range(52),medwardS[0][4:56])
 
 plt.title("Medical Wards as the Transfer Source")
 
@@ -126,21 +126,21 @@ plt.title("Medical Wards as the Transfer Target")
 plt.savefig("data/MedicalT.png")
 plt.clf()
 plt.figure(figsize=(10,5))
-p9 = plt.bar(range(82),medwardT[7],bottom=medwardT[6])
+p9 = plt.bar(range(52),medwardT[7][4:56],bottom=medwardT[6][4:56])
 
-p8 = plt.bar(range(82),medwardT[6],bottom=medwardT[5])
+p8 = plt.bar(range(52),medwardT[6][4:56],bottom=medwardT[5][4:56])
 
-p7 = plt.bar(range(82),medwardT[5],bottom=medwardT[4])
+p7 = plt.bar(range(52),medwardT[5][4:56],bottom=medwardT[4][4:56])
 
-p6 = plt.bar(range(82),medwardT[4],bottom=medwardT[3])
+p6 = plt.bar(range(52),medwardT[4][4:56],bottom=medwardT[3][4:56])
 
-p4 = plt.bar(range(82),medwardT[3],bottom=medwardT[2])
+p4 = plt.bar(range(52),medwardT[3][4:56],bottom=medwardT[2][4:56])
 
-p3 = plt.bar(range(82),medwardT[2],bottom=medwardT[1])
+p3 = plt.bar(range(52),medwardT[2][4:56],bottom=medwardT[1][4:56])
 
-p2 = plt.bar(range(82),medwardT[1],bottom=medwardT[0])
+p2 = plt.bar(range(52),medwardT[1][4:56],bottom=medwardT[0][4:56])
 
-p1 = plt.bar(range(82),medwardT[0])
+p1 = plt.bar(range(52),medwardT[0][4:56])
 
 
 plt.title("Medical Wards as the Transfer Target")
@@ -198,19 +198,19 @@ plt.savefig("data/SurgicalT.png")
 plt.clf()
 plt.figure(figsize=(10,5))
 
-p7 = plt.bar(range(82),surwardS[6],bottom=surwardS[5])
+p7 = plt.bar(range(52),surwardS[6][4:56],bottom=surwardS[5][4:56])
 
-p6 = plt.bar(range(82),surwardS[5],bottom=surwardS[4])
+p6 = plt.bar(range(52),surwardS[5][4:56],bottom=surwardS[4][4:56])
 
-p5 = plt.bar(range(82),surwardS[4],bottom=surwardS[3])
+p5 = plt.bar(range(52),surwardS[4][4:56],bottom=surwardS[3][4:56])
 
-p4 = plt.bar(range(82),surwardS[3],bottom=surwardS[2])
+p4 = plt.bar(range(52),surwardS[3][4:56],bottom=surwardS[2][4:56])
 
-p3 = plt.bar(range(82),surwardS[2],bottom=surwardS[1])
+p3 = plt.bar(range(52),surwardS[2][4:56],bottom=surwardS[1][4:56])
 
-p2 = plt.bar(range(82),surwardS[1],bottom=surwardS[0])
+p2 = plt.bar(range(52),surwardS[1][4:56],bottom=surwardS[0][4:56])
 
-p1 = plt.bar(range(82),surwardS[0])
+p1 = plt.bar(range(52),surwardS[0][4:56])
 
 plt.title("Surgical Wards as the Transfer Source")
 
@@ -220,19 +220,19 @@ plt.savefig("data/SurgicalSBar.png")
 plt.clf()
 plt.figure(figsize=(10,5))
 
-p7 = plt.bar(range(82),surwardT[6],bottom=surwardT[5])
+p7 = plt.bar(range(52),surwardT[6][4:56],bottom=surwardT[5][4:56])
 
-p6 = plt.bar(range(82),surwardT[5],bottom=surwardT[4])
+p6 = plt.bar(range(52),surwardT[5][4:56],bottom=surwardT[4][4:56])
 
-p5 = plt.bar(range(82),surwardT[4],bottom=surwardT[3])
+p5 = plt.bar(range(52),surwardT[4][4:56],bottom=surwardT[3][4:56])
 
-p4 = plt.bar(range(82),surwardT[3],bottom=surwardT[2])
+p4 = plt.bar(range(52),surwardT[3][4:56],bottom=surwardT[2][4:56])
 
-p3 = plt.bar(range(82),surwardT[2],bottom=surwardT[1])
+p3 = plt.bar(range(52),surwardT[2][4:56],bottom=surwardT[1][4:56])
 
-p2 = plt.bar(range(82),surwardT[1],bottom=surwardT[0])
+p2 = plt.bar(range(52),surwardT[1][4:56],bottom=surwardT[0][4:56])
 
-p1 = plt.bar(range(82),surwardT[0])
+p1 = plt.bar(range(52),surwardT[0][4:56])
 
 
 plt.title("Surgical Wards as the Transfer Target")
