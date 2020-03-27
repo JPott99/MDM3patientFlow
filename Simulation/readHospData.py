@@ -1,27 +1,35 @@
 import csv
 import numpy as np
 
+#This program takes the original dataset and reformats it into:
+#    hospitalData.csv:  A slightly cleaner file with wards and cites appened,
+#                       and the time shown in weeks since start.
+#    transfers.csv: A restructured format which all transfers are shown
+#                   in the same row as the transfer source and target.
+#    sourceTransfers.csv:   A file showing the number of transfers from each
+#                           applicable ward per week.
+#    targetTransfers.csv:  A file showing the number of transfers to each
+#                          applicable ward per week.
+#    transferProbability.csv:   A file showing the relative rates per transfer.
+
+
+#This program must be run as a prerequisite to running patientFlowSim.py.
 if __name__ == "__main__":
-    with open('pone0185912s003.csv', 'rt') as f_input:
+    with open('data/pone0185912s003.csv', 'rt') as f_input:
         csv_input = csv.reader(f_input, delimiter=',')
         header = next(csv_input)
         data = list(csv_input)
 
-    maxWeek = 0
-    maxYear = 0
-    minWeek = 10000
-    minYear = 10000
-
     myData = []
     for i in range(len(data)):
         currentData = []
-        currentData.append(data[i][0]) #Source
-        # currentData.append(data[i][1]) #Site Source
-        currentData.append(data[i][2]) #Target
-        # currentData.append(data[i][3]) #Site Target
+        # The ward names and site codes are appended.
+        currentData.append(data[i][0]+"."+data[i][1]) #Source
+        currentData.append(data[i][2]+"."+data[i][3]) #Target
         currentData.append(int(data[i][4])) #Transfers
         currentYear = int(data[i][5]) #Year
         currentWeek = int(data[i][6]) #Week of Year
+        # Convert weeks in a year to weeks from start.
         if currentYear == 2014:
             currentWeek = currentWeek-48
         if currentYear == 2015:
@@ -32,7 +40,8 @@ if __name__ == "__main__":
         myData.append(currentData)
 
     #myData form is [Source, Target, Transfers, Week]
-with open("hospitalData.csv",'w') as file:
+with open("data/hospitalData.csv",'w') as file:
+    # Outputs data with combined names and weeks since start.
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target","Transfers","Week"])
     writer.writerows(myData)
@@ -67,7 +76,8 @@ for i in range(len(myData)):
         transferListNo[transferListLen-1][week]+=transferNo
     else:
         transferListNo[transferList.index(pairing)][week]+=transferNo
-with open("transfers.csv",'w') as file:
+with open("data/transfers.csv",'w') as file:
+    #Shows data in form of Source, Target, Transfer in Week n
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target"]+list(range(82)))
     for i in range(len(transferList)):
@@ -79,7 +89,8 @@ for i in range(len(transferList)):
     source = transferList[i][0]
     j = Sources.index(source)
     sourceTransfers[j] += transferListNoNp[i]
-with open("sourceTransfers.csv",'w') as file:
+with open("data/sourceTransfers.csv",'w') as file:
+    # Shows transfers from each source per week
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source"]+list(range(82)))
     for i in range(len(Sources)):
@@ -90,12 +101,14 @@ for i in range(len(transferList)):
     target = transferList[i][1]
     j = Targets.index(target)
     targetTransfers[j] += transferListNoNp[i]
-with open("targetTransfers.csv",'w') as file:
+with open("data/targetTransfers.csv",'w') as file:
+    # Shows transfers to each target per week.
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Target"]+list(range(82)))
     for i in range(len(Targets)):
         writer.writerow([Targets[i]]+list(targetTransfers[i]))
 
+# Calculates the differents rates of transfer from each source-target.
 probabilityMatrix = transferListNo
 for i in range(len(transferList)):
     source = transferList[i][0]
@@ -103,12 +116,8 @@ for i in range(len(transferList)):
     for k in range(82):
         if sourceTransfers[j][k]!=0:
             probabilityMatrix[i][k] = transferListNo[i][k]/sourceTransfers[j][k]
-for i in probabilityMatrix:
-    for j in i:
-        if  np.isnan(j) or j>1:
-            j = 0
 
-with open("transferProbability.csv",'w') as file:
+with open("data/transferProbability.csv",'w') as file:
     writer = csv.writer(file, delimiter=',')
     writer.writerow(["Source","Target"]+list(range(82)))
     for i in range(len(transferList)):
